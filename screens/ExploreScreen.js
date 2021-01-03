@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-const NotificationScreen = ({ navigation }) => {
+const ExploreScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>Notification Screen!</Text>
+      <Text>Explore Screen!</Text>
       <View style={styles.button}>
         <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
       </View>
@@ -12,7 +12,7 @@ const NotificationScreen = ({ navigation }) => {
   )
 }
 
-export default NotificationScreen;
+export default ExploreScreen;
 
 const styles = StyleSheet.create({
   container: {
