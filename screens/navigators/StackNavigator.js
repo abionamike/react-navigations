@@ -6,7 +6,7 @@ import ProfileScreen from '../ProfileScreen';
 import ExploreScreen from '../ExploreScreen';
 import DetailsScreen from '../DetailsScreen';
 
-const HomeStackNavigator = () => {
+const HomeStackNavigator = ({ navigation }) => {
   const Stack = createStackNavigator();
   return(
     <Stack.Navigator screenOptions={{
@@ -15,14 +15,14 @@ const HomeStackNavigator = () => {
         backgroundColor: '#009387',
       },
       headerTitleAlign: 'center',
-      headerLeft: () => <MaterialIcons name="menu" size={28} color="#fff" style={{ marginLeft: 8 }} />,
+      headerLeft: () => <MaterialIcons name="menu" size={28} color="#fff" style={{ marginLeft: 8 }} onPress={() => navigation.openDrawer()} />,
     }}>
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>
   )
 }
 
-const DetailsStackNavigator = () => {
+const DetailsStackNavigator = ({ navigation }) => {
   const Stack = createStackNavigator();
   return(
     <Stack.Navigator screenOptions={{
@@ -31,7 +31,7 @@ const DetailsStackNavigator = () => {
         backgroundColor: '#009387',
       },
       headerTitleAlign: 'center',
-      headerLeft: () => <MaterialIcons name="menu" size={28} color="#fff" style={{ marginLeft: 8 }} />,
+      headerLeft: () => <MaterialIcons name="menu" size={28} color="#fff" style={{ marginLeft: 8 }} onPress={() => navigation.openDrawer()} />,
     }}>
       <Stack.Screen name="Details" component={DetailsScreen} />
     </Stack.Navigator>
