@@ -5,9 +5,9 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Profile Screen!</Text>
-      <View style={styles.button}>
+      {/* <View style={styles.button}>
         <Button title="Go to Notification Screen" onPress={() => navigation.navigate('Notification')} />
-      </View>
+      </View> */}
     </View>
   )
 }

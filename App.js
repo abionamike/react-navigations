@@ -2,19 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import BottomTab from './screens/BottomTab';
+import DrawerNavigator from './screens/navigators/DrawerNavigator';
 
 const App = () => {
-  const Drawer = createDrawerNavigator();
 
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <Drawer.Navigator>
-          <Drawer.Screen name="Home" component={BottomTab} />
-          {/* <Drawer.Screen name="Details" component={DetailsStackScreen} /> */}
-        </Drawer.Navigator>
+        <DrawerNavigator />
       </NavigationContainer>
       <StatusBar style="auto" />
     </View>
