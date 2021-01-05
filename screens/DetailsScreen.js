@@ -6,7 +6,7 @@ const DetailsScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text>Details Screen!</Text>
       <View style={styles.button}>
-        <Button title="Go to Profile Screen" onPress={() => navigation.navigate('Profile')} />
+        <Button title="Go to Explore Screen" onPress={() => navigation.navigate('Explore')} />
       </View>
     </View>
   )

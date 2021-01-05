@@ -22,22 +22,22 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen 
-        name="Details" 
-        component={DetailsStackNavigator} 
-        options={{
-          tabBarLabel: 'Details',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen 
         name="Profile" 
         component={ProfileStackNavigator} 
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
             <Ionicons name="person" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Details" 
+        component={DetailsStackNavigator} 
+        options={{
+          tabBarLabel: 'Details',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="bell" color={color} size={26} />
           ),
         }}
       />

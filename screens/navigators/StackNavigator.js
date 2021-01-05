@@ -5,6 +5,9 @@ import HomeScreen from '../HomeScreen';
 import ProfileScreen from '../ProfileScreen';
 import ExploreScreen from '../ExploreScreen';
 import DetailsScreen from '../DetailsScreen';
+import SettingsScreen from '../SettingsScreen';
+import BookmarksScreen from '../BookmarksScreen';
+import SupportScreen from '../SupportScreen';
 
 const HomeStackNavigator = ({ navigation }) => {
   const Stack = createStackNavigator();
@@ -22,7 +25,7 @@ const HomeStackNavigator = ({ navigation }) => {
   )
 }
 
-const DetailsStackNavigator = ({ navigation }) => {
+const ProfileStackNavigator = ({ navigation }) => {
   const Stack = createStackNavigator();
   return(
     <Stack.Navigator screenOptions={{
@@ -32,6 +35,17 @@ const DetailsStackNavigator = ({ navigation }) => {
       },
       headerTitleAlign: 'center',
       headerLeft: () => <MaterialIcons name="menu" size={28} color="#fff" style={{ marginLeft: 8 }} onPress={() => navigation.openDrawer()} />,
+    }}>
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+    </Stack.Navigator>
+  )
+}
+
+const DetailsStackNavigator = () => {
+  const Stack = createStackNavigator();
+  return(
+    <Stack.Navigator screenOptions={{
+      headerShown: false
     }}>
       <Stack.Screen name="Details" component={DetailsScreen} />
     </Stack.Navigator>
@@ -49,15 +63,37 @@ const ExploreStackNavigator = () => {
   )
 }
 
-const ProfileStackNavigator = () => {
+const BookmarksStackNavigator = () => {
   const Stack = createStackNavigator();
   return(
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Bookmarks" component={BookmarksScreen} />
     </Stack.Navigator>
   )
 }
 
-export { HomeStackNavigator, ExploreStackNavigator, ProfileStackNavigator, DetailsStackNavigator };
+const SettingsStackNavigator = () => {
+  const Stack = createStackNavigator();
+  return(
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+    </Stack.Navigator>
+  )
+}
+
+const SupportStackNavigator = () => {
+  const Stack = createStackNavigator();
+  return(
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="Support" component={SupportScreen} />
+    </Stack.Navigator>
+  )
+}
+
+export { HomeStackNavigator, ExploreStackNavigator, ProfileStackNavigator, DetailsStackNavigator, SupportStackNavigator, BookmarksStackNavigator, SettingsStackNavigator };
