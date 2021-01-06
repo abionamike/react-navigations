@@ -3,13 +3,15 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerNavigator from './screens/navigators/DrawerNavigator';
+import { RootStackNavigator } from './screens/navigators/StackNavigator';
 
 const App = () => {
 
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <DrawerNavigator />
+        <RootStackNavigator />
+        {/* <DrawerNavigator /> */}
       </NavigationContainer>
       <StatusBar style="auto" />
     </View>

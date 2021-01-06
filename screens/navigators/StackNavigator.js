@@ -8,6 +8,9 @@ import DetailsScreen from '../DetailsScreen';
 import SettingsScreen from '../SettingsScreen';
 import BookmarksScreen from '../BookmarksScreen';
 import SupportScreen from '../SupportScreen';
+import SignUpScreen from '../SignUpScreen';
+import SplashScreen from '../SplashScreen';
+import SigInScreen from '../SignInScreen';
 
 const HomeStackNavigator = ({ navigation }) => {
   const Stack = createStackNavigator();
@@ -96,4 +99,26 @@ const SupportStackNavigator = () => {
   )
 }
 
-export { HomeStackNavigator, ExploreStackNavigator, ProfileStackNavigator, DetailsStackNavigator, SupportStackNavigator, BookmarksStackNavigator, SettingsStackNavigator };
+const RootStackNavigator = () => {
+  const Stack = createStackNavigator();
+  return(
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="SignIn" component={SigInScreen} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
+    </Stack.Navigator>
+  )
+}
+
+export { 
+  HomeStackNavigator, 
+  ExploreStackNavigator, 
+  ProfileStackNavigator, 
+  DetailsStackNavigator, 
+  SupportStackNavigator, 
+  BookmarksStackNavigator, 
+  SettingsStackNavigator,
+  RootStackNavigator,
+};
