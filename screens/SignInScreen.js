@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Text, View, StyleSheet, TextInput, Platform, TouchableOpacity, StatusBar } from 'react-native';
 import { LinearGradient }  from 'expo-linear-gradient';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
+import { AuthContext } from '../components/Context';
 
 const SigInScreen = ({ navigation }) => {
   const [data, setData] = useState({
-    email: '',
+    username: '',
     password: '',
     check_textInputChange: false,
     secureTextEntry: true
   });
 
+  const { signIn } = useContext(AuthContext);
+
   const textInputChange = (val) => {
     if(val.length !== 0){
       setData({
         ...data,
-        email: val,
+        username: val,
         check_textInputChange: true
       });
     } else {
       setData({
         ...data,
-        email: val,
+        username: val,
         check_textInputChange: false
       })
     }
@@ -42,6 +45,10 @@ const SigInScreen = ({ navigation }) => {
     });
   }
 
+  const handleLogin = (username, password) => {
+    signIn(username, password);
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="light-content" />
@@ -49,7 +56,7 @@ const SigInScreen = ({ navigation }) => {
         <Text style={styles.text_header}>Welcome!</Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.text_footer}>Email</Text>
+        <Text style={styles.text_footer}>Username</Text>
         <View style={styles.action}>
           <FontAwesome
             name="user-o"
@@ -57,7 +64,7 @@ const SigInScreen = ({ navigation }) => {
             size={20}
           />
           <TextInput 
-            placeholder="Your Email"
+            placeholder="Your Username"
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => textInputChange(val)}
@@ -106,13 +113,21 @@ const SigInScreen = ({ navigation }) => {
             }
           </TouchableOpacity>
         </View>
+        <TouchableOpacity>
+          <Text style={{ color: '#009387', marginTop: 15 }}>Forgot password</Text>
+        </TouchableOpacity>
         <View style={styles.button}>
-          <LinearGradient
-            colors={['#08d4c4', '#01ab9d']}
+          <TouchableOpacity
             style={styles.signIn}
+            onPress={() => handleLogin(data.username, data.password)}
           >
-            <Text style={[styles.textSign, { color: '#fff' }]}>Sign In</Text>
-          </LinearGradient>
+            <LinearGradient
+              colors={['#08d4c4', '#01ab9d']}
+              style={styles.signIn}
+            >
+              <Text style={[styles.textSign, { color: '#fff' }]}>Sign In</Text>
+            </LinearGradient>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('SignUp')}
             style={[styles.signIn, {
