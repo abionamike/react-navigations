@@ -1,42 +1,56 @@
 import React, { useState, useContext } from 'react';
-import { Text, View, StyleSheet, TextInput, Platform, TouchableOpacity, StatusBar } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Platform, TouchableOpacity, StatusBar, Alert } from 'react-native';
 import { LinearGradient }  from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import AppContext from '../context/Context';
+import { Users } from '../model/Model';
 
 const SigInScreen = ({ navigation }) => {
   const [data, setData] = useState({
     username: '',
     password: '',
     check_textInputChange: false,
-    secureTextEntry: true
+    secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true
   });
 
-  const { state, dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
 
   const textInputChange = (val) => {
-    if(val.length !== 0){
+    if(val.trim().length >= 4){
       setData({
         ...data,
         username: val,
-        check_textInputChange: true
+        check_textInputChange: true,
+        isValidUser: true
       });
     } else {
       setData({
         ...data,
         username: val,
-        check_textInputChange: false
+        check_textInputChange: false,
+        isValidUser: false
       })
     }
   }
 
   const handlePasswordChange = (val) => {
-    setData({
-      ...data,
-      password: val,
-    });
+    if(val.trim().length >= 8){
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: true
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: false
+      });
+    }
   }
 
   const updateSecureTextEntry = () => {
@@ -48,15 +62,41 @@ const SigInScreen = ({ navigation }) => {
 
   const handleLogin = async (username, password) => {
     try {
-        if(username === 'user' && password === 'pass') {
-          const userToken = 'dfgdg';
-          await AsyncStorage.setItem('userToken', userToken);
-    
-          dispatch({ type: 'LOGIN', id: username, token: userToken });
+        const foundUser = Users.find(user => user.username === username && user.password === password);
+        if(data.username.length === 0 || data.password.length === 0){
+          Alert.alert('Wrong Input', 'Username or password cannot be empty', [
+            { text: 'Okay' }
+          ]);
+          return;
         }
+
+        if(!foundUser){
+          Alert.alert('Invalid User', 'Username or password is incorrect', [
+            { text: 'Okay' }
+          ]);
+          return;
+        }
+        const userToken = foundUser.userToken;
+        await AsyncStorage.setItem('userToken', userToken);
+  
+        dispatch({ type: 'LOGIN', id: foundUser.username, token: userToken });
       } catch (error) {
         console.log(error);
       }
+  }
+
+  const handleValidUser = (val) => {
+    if(val.trim().length >= 4){
+      setData({
+        ...data,
+        isValidUser: true
+      });
+    } else {
+      setData({
+        ...data,
+        isValidUser: false
+      });
+    }
   }
 
   return (
@@ -78,6 +118,7 @@ const SigInScreen = ({ navigation }) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => textInputChange(val)}
+            onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
           />
           {data.check_textInputChange ? 
             <Animatable.View
@@ -92,6 +133,12 @@ const SigInScreen = ({ navigation }) => {
             null
           }
         </View>
+        {data.isValidUser ? null : 
+          <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>Username must be at atleast 4 characters long</Text>
+          </Animatable.View>
+        }
+
         <Text style={[styles.text_footer, { marginTop: 35 }]}>Password</Text>
         <View style={styles.action}>
           <Feather
@@ -123,6 +170,11 @@ const SigInScreen = ({ navigation }) => {
             }
           </TouchableOpacity>
         </View>
+        {data.isValidPassword ? null : 
+          <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>Password must be at atleast 8 characters long</Text>
+          </Animatable.View>
+        }
         <TouchableOpacity>
           <Text style={{ color: '#009387', marginTop: 15 }}>Forgot password</Text>
         </TouchableOpacity>
@@ -211,5 +263,8 @@ const styles = StyleSheet.create({
   textSign: {
     fontSize: 18,
     fontWeight: 'bold'
+  },
+  errorMsg: {
+    color: 'crimson'
   }
 });
