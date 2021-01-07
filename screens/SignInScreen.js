@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Text, View, StyleSheet, TextInput, Platform, TouchableOpacity, StatusBar } from 'react-native';
 import { LinearGradient }  from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
-import { AuthContext } from '../components/Context';
+import AppContext from '../context/Context';
 
 const SigInScreen = ({ navigation }) => {
   const [data, setData] = useState({
@@ -13,7 +14,7 @@ const SigInScreen = ({ navigation }) => {
     secureTextEntry: true
   });
 
-  const { signIn } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AppContext);
 
   const textInputChange = (val) => {
     if(val.length !== 0){
@@ -45,8 +46,17 @@ const SigInScreen = ({ navigation }) => {
     });
   }
 
-  const handleLogin = (username, password) => {
-    signIn(username, password);
+  const handleLogin = async (username, password) => {
+    try {
+        if(username === 'user' && password === 'pass') {
+          const userToken = 'dfgdg';
+          await AsyncStorage.setItem('userToken', userToken);
+    
+          dispatch({ type: 'LOGIN', id: username, token: userToken });
+        }
+      } catch (error) {
+        console.log(error);
+      }
   }
 
   return (

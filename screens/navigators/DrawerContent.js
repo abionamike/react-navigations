@@ -5,17 +5,29 @@ import {
   DrawerItem
 } from '@react-navigation/drawer';
 import { Text, Avatar, Paragraph, Caption, Switch, TouchableRipple, Title, Drawer } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AuthContext } from '../../components/Context';
+import AppContext from '../../context/Context';
 
 const CustomDrawerContent = ({ navigation }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  const { signOut } = useContext(AuthContext);
+  const { dispatch } = useContext(AppContext);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
   }
+
+  const handleSignOut = async () => {
+    try {
+      await AsyncStorage.removeItem('userToken');
+  
+      dispatch({ type: 'LOGOUT' });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView>
@@ -82,7 +94,7 @@ const CustomDrawerContent = ({ navigation }) => {
         <DrawerItem
           label="Sign Out"
           icon={({ color, size }) => <MaterialCommunityIcons name="exit-to-app" size={size} color={color} />}
-          onPress={() => signOut()}
+          onPress={handleSignOut}
         />
       </Drawer.Section>
     </View>
