@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
+import { useTheme } from 'react-native-paper';
 
 const HomeScreen = ({ navigation }) => {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.container}>
-      <Text>Home Screen!</Text>
+      <Text style={{ color: colors.text }}>Home Screen!</Text>
       <View style={styles.button}>
         <Button title="Go to Profile Screen" onPress={() => navigation.navigate('Profile')} />
       </View>

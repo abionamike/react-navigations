@@ -12,10 +12,10 @@ import AppContext from '../../context/Context';
 const CustomDrawerContent = ({ navigation }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  const { dispatch } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
   const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
+    dispatch({ type: 'TOGGLE_THEME' });
   }
 
   const handleSignOut = async () => {
@@ -83,7 +83,7 @@ const CustomDrawerContent = ({ navigation }) => {
               <View style={styles.preference}>
                 <Text>Dark Theme</Text>
                 <View pointerEvents="none">
-                  <Switch value={isDarkTheme} />
+                  <Switch value={state.isDarkTheme} />
                 </View>
               </View>
             </TouchableRipple>

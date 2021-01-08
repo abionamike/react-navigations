@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { useTheme } from 'react-native-paper';
 
 const SettingsScreen = () => {
+  const { colors } = useTheme(); 
+  
   return (
     <View style={styles.container}>
-      <Text>Settings Screen!</Text>
+      <Text style={{ color: colors.text }}>Settings Screen!</Text>
     </View>
   )
 }

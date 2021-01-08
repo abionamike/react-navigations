@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { useTheme } from 'react-native-paper';
 
 const SupportScreen = () => {
+  const { colors } = useTheme();
+  
   return (
     <View style={styles.container}>
-      <Text>Support Screen!</Text>
+      <Text style={{ color: colors.text }}>Support Screen!</Text>
     </View>
   )
 }

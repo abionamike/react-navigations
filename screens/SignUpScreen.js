@@ -3,8 +3,11 @@ import { Text, View, StyleSheet, TextInput, Platform, TouchableOpacity, StatusBa
 import { LinearGradient }  from 'expo-linear-gradient';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
+import { useTheme } from 'react-native-paper';
 
 const SigInScreen = ({ navigation }) => {
+  const { colors } = useTheme();
+
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -64,16 +67,17 @@ const SigInScreen = ({ navigation }) => {
       <View style={styles.header}>
         <Text style={styles.text_header}>Register Now!</Text>
       </View>
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.text_footer}>Email</Text>
+      <Animatable.View animation="fadeInUpBig" style={[styles.footer, { backgroundColor: colors.background }]}>
+        <Text style={[styles.text_footer, { color: colors.text }]}>Email</Text>
         <View style={styles.action}>
           <FontAwesome
             name="user-o"
-            color="#05375a"
+            color="grey"
             size={20}
           />
           <TextInput 
             placeholder="Your Email"
+            placeholderTextColor={colors.placeholder}
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => textInputChange(val)}
@@ -91,15 +95,16 @@ const SigInScreen = ({ navigation }) => {
             null
           }
         </View>
-        <Text style={[styles.text_footer, { marginTop: 35 }]}>Password</Text>
+        <Text style={[styles.text_footer, { marginTop: 35, color: colors.text }]}>Password</Text>
         <View style={styles.action}>
           <Feather
             name="lock"
-            color="#05375a"
+            color="grey"
             size={20}
           />
           <TextInput 
             placeholder="Your Password"
+            placeholderTextColor={colors.placeholder}
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
@@ -122,15 +127,16 @@ const SigInScreen = ({ navigation }) => {
             }
           </TouchableOpacity>
         </View>
-        <Text style={[styles.text_footer, { marginTop: 35 }]}>Confirm Password</Text>
+        <Text style={[styles.text_footer, { marginTop: 35, color: colors.text }]}>Confirm Password</Text>
         <View style={styles.action}>
           <Feather
             name="lock"
-            color="#05375a"
+            color="grey"
             size={20}
           />
           <TextInput 
             placeholder="Your Password"
+            placeholderTextColor={colors.placeholder}
             secureTextEntry={data.confirm_secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"

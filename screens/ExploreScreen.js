@@ -1,10 +1,13 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 
 const ExploreScreen = ({ navigation }) => {
+  const { colors } = useTheme(); 
+
   return (
     <View style={styles.container}>
-      <Text>Explore Screen!</Text>
+      <Text style={{ color: colors.text }}>Explore Screen!</Text>
       <View style={styles.button}>
         <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
       </View>
