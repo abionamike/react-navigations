@@ -28,6 +28,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "A shopify app which which has authentication/authorization with user's profile details(in drawer content). \nReact-context, animations, color gradient.\n\nLogin Details:\nusername: user1\npassword: password",
+    "githubUrl": "https://github.com/abionamike/react-navigations"
   }
 }

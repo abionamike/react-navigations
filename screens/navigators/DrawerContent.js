@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/drawer';
 import { Text, Avatar, Paragraph, Caption, Switch, TouchableRipple, Title, Drawer } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import AppContext from '../../context/Context';
 
 const CustomDrawerContent = ({ navigation }) => {
@@ -63,11 +63,21 @@ const CustomDrawerContent = ({ navigation }) => {
               onPress={() => navigation.navigate('Profile')}
             />
             <DrawerItem
+              label="Details"
+              icon={({ color, size }) => <MaterialCommunityIcons name="bell" size={size} color={color} />}
+              onPress={() => navigation.navigate('Details')}
+            />
+            <DrawerItem
+              label="Explore"
+              icon={({ color, size }) => <Ionicons name="aperture" size={size} color={color} />}
+              onPress={() => navigation.navigate('Explore')}
+            />
+            {/* <DrawerItem
               label="Bookmarks"
               icon={({ color, size }) => <MaterialCommunityIcons name="bookmark-outline" size={size} color={color} />}
               onPress={() => navigation.navigate('Bookmarks')}
-            />
-            <DrawerItem
+            /> */}
+            {/* <DrawerItem
               label="Settings"
               icon={({ color, size }) => <MaterialCommunityIcons name="account-settings-outline" size={size} color={color} />}
               onPress={() => navigation.navigate('Settings')}
@@ -76,7 +86,7 @@ const CustomDrawerContent = ({ navigation }) => {
               label="Support"
               icon={({ color, size }) => <MaterialCommunityIcons name="account-check-outline" size={size} color={color} />}
               onPress={() => navigation.navigate('Support')}
-            />
+            /> */}
           </Drawer.Section>
           <Drawer.Section title="Preferences">
             <TouchableRipple onPress={toggleTheme}>
